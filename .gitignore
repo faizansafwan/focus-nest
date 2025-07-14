@@ -1,0 +1,53 @@
+# Node.js
+
+node_modules/
+
+
+
+# Logs
+
+logs
+
+*.log
+
+
+
+# Runtime data
+
+pids
+
+*.pid
+
+*.seed
+
+
+
+# Environment variables
+
+
+
+# Build directories
+
+dist/
+
+build/
+
+.next/
+
+out/
+
+
+
+# OS/system files
+
+.DS_Store
+
+Thumbs.db
+
+
+
+# VSCode settings
+
+.vscode/
+
+config.bat
