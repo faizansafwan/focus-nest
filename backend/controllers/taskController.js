@@ -4,11 +4,9 @@ import dotenv from 'dotenv';
 import User from '../models/User.js';
 dotenv.config();
 
-
 const token = process.env.GITHUB_TOKEN;
 const endpoint = 'https://models.github.ai/inference';
 const model = 'openai/gpt-4.1';
-
 
 console.log(process.env.GITHUB_TOKEN);
 const openaiClient = new OpenAI({ baseURL: endpoint, apiKey: token });
@@ -38,8 +36,6 @@ export const getTasks = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
-
-
 
 export const createTask = async (req, res) => {
   let {
@@ -148,7 +144,6 @@ Reason: <brief explanation>
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
-
 
 // @desc    Update a task
 // @route   PUT /api/tasks/:id

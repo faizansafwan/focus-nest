@@ -1,5 +1,8 @@
 import express from 'express';
-import { getCognitiveLoad, getFocusSlotRecommendation } from '../controllers/aiController.js';
+import {
+  getCognitiveLoad,
+  getFocusSlotRecommendation,
+} from '../controllers/aiController.js';
 import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
