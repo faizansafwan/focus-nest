@@ -1,9 +1,15 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
+import dotenv from 'dotenv';
+dotenv.config();
+
+import express from 'express';
+import mongoose from 'mongoose';
+
+import authRoutes from './routes/authRoutes.js';
+import taskRoutes from './routes/taskRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import aiRoutes from './routes/aiRoutes.js';
+
 const PORT = process.env.PORT || 5000;
-const authRoutes = require('./routes/authRoutes');
-const taskRoutes = require('./routes/taskRoutes');
 
 const app = express();
 app.use(express.json());
@@ -24,8 +30,10 @@ mongoose
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/task', taskRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/tasks', aiRoutes);
 
-// connect Server
+// Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
