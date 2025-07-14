@@ -7,7 +7,6 @@ const token = process.env.GITHUB_TOKEN;
 const endpoint = 'https://models.github.ai/inference';
 const model = 'openai/gpt-4.1';
 
-
 console.log(process.env.GITHUB_TOKEN);
 const client = new OpenAI({ baseURL: endpoint, apiKey: token });
 
@@ -49,26 +48,26 @@ export const getFocusSlotRecommendation = async (req, res) => {
       Reason: <brief explanation>
       `;
 
-    
     const result = await client.chat.completions.create({
       messages: [
-        { role:"system", content: "You are a helpful assistant." },
-        { role:"user", content: prompt }
+        { role: 'system', content: 'You are a helpful assistant.' },
+        { role: 'user', content: prompt },
       ],
       temperature: 1.0,
       top_p: 1.0,
-      model: model
+      model: model,
     });
 
     console.log();
 
     const responseText = result.choices[0].message.content.trim();
-    const [slotLine, reasonLine] = responseText.split('\n').map(line => line.trim());
+    const [slotLine, reasonLine] = responseText
+      .split('\n')
+      .map((line) => line.trim());
     const suggestedFocusSlot = slotLine.replace('Focus Slot: ', '');
     const reason = reasonLine?.replace('Reason: ', '');
 
     res.json({ suggestedFocusSlot, reason });
-
   } catch (error) {
     console.error(error.response?.data || error.message);
     res
@@ -77,7 +76,6 @@ export const getFocusSlotRecommendation = async (req, res) => {
   }
 };
 
-
 // @desc    Use OpenAI to calculate cognitive load
 // @route   POST /api/ai/cognitive-load
 // @access  Private
@@ -85,7 +83,9 @@ export const getCognitiveLoad = async (req, res) => {
   const { title, description } = req.body;
 
   if (!title && !description) {
-    return res.status(400).json({ message: 'Title or description is required' });
+    return res
+      .status(400)
+      .json({ message: 'Title or description is required' });
   }
 
   const prompt = `
@@ -108,7 +108,7 @@ export const getCognitiveLoad = async (req, res) => {
       model: model,
       messages: [
         { role: 'system', content: 'You are a productivity assistant.' },
-        { role: 'user', content: prompt }
+        { role: 'user', content: prompt },
       ],
       temperature: 0.3,
     });
@@ -117,7 +117,8 @@ export const getCognitiveLoad = async (req, res) => {
     res.json({ cognitiveLoad: output });
   } catch (error) {
     console.error(error.response?.data || error.message);
-    res.status(500).json({ message: 'OpenAI request failed', error: error.message });
+    res
+      .status(500)
+      .json({ message: 'OpenAI request failed', error: error.message });
   }
 };
-
